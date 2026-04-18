@@ -19,7 +19,42 @@ Se diseñó e implementó una arquitectura de Internet de las Cosas (IoT) orient
     * 10 Dispositivos Simulados (Retroexcavadoras y Volquetas) generando datos base de forma continua.
     * 2 Dispositivos Edge Reales (Cargadores Frontales) operando mediante scripts asíncronos en Python.
 
-![Arquitectura del Proyecto](images/arquitectura.jpg)
+graph LR
+    %% Definición de Estilos
+    classDef edge fill:#e1f5fe,stroke:#01579b,stroke-width:2px;
+    classDef cloud fill:#e3f2fd,stroke:#1565c0,stroke-width:2px;
+    classDef eam fill:#f3e5f5,stroke:#4a148c,stroke-width:2px;
+
+    ```subgraph Edge ["Capa Edge"]
+        direction TB
+        Py1["🚜 Cargador-Python-01<br/>(asyncio / MQTT)"]:::edge
+        Py2["🚜 Cargador-Python-02<br/>(asyncio / MQTT)"]:::edge
+        Sim["🏗️ 10x Equipos Simulados<br/>(Generación Continua)"]:::edge
+    end
+
+    subgraph Azure ["Capa Cloud - Azure aPaaS"]
+        direction TB
+        DPS{"Azure DPS<br/>(Device Provisioning)"}:::cloud
+        IoT["Azure IoT Central<br/>(Hub & Time Series)"]:::cloud
+    end
+
+    subgraph Negocio ["Capa de Negocio y Control"]
+        direction TB
+        Dash["📊 Control Room<br/>(Dashboard 4 Días)"]:::eam
+        Maximo["⚙️ IBM Maximo EAM<br/>(Mantenimiento Predictivo)"]:::eam
+    end
+
+    %% Conexiones
+    Py1 -.->|1. Autenticación SAS| DPS
+    Py2 -.->|1. Autenticación SAS| DPS
+    DPS -->|2. Asignación| IoT
+    
+    Py1 ==>|Telemetría Asíncrona / Estado| IoT
+    Py2 ==>|Telemetría Asíncrona / Estado| IoT
+    Sim -->|Telemetría Simulada| IoT
+
+    IoT ==>|Visualización de Gemelos Digitales| Dash
+    IoT -.->|Reglas / Exportación de Alertas| Maximo```
 
 ---
 
