@@ -2,36 +2,116 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Centro de Monitoreo IoT - Bucaramanga</title>
+  <title>Centro de Monitoreo IoT - UNAB</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-  <!-- Tema visual moderno (Vue) -->
+  
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      /* Paleta Institucional UNAB */
+      --theme-color: #F15A24;     /* Naranja UNAB (Acentuación) */
+      --unab-blue: #003865;       /* Azul UNAB (Autoridad) */
+      --unab-light-bg: #F4F7F9;   /* Gris azulado muy tenue para el fondo */
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif !important;
+      background-color: var(--unab-light-bg) !important;
+    }
+
+    /* Estilización de la barra lateral (Sidebar) */
+    .sidebar {
+      background-color: var(--unab-blue) !important;
+      color: white !important;
+      border-right: 4px solid var(--theme-color) !important;
+    }
+
+    .sidebar-nav li a {
+      color: rgba(255, 255, 255, 0.8) !important;
+      font-weight: 400;
+    }
+
+    .sidebar-nav li a:hover, 
+    .sidebar-nav li.active > a {
+      color: white !important;
+      font-weight: 700 !important;
+      text-decoration: none;
+      background: rgba(241, 90, 36, 0.2); /* Fondo naranja sutil al seleccionar */
+      border-left: 4px solid var(--theme-color);
+    }
+
+    /* Ajuste del Logo en la Sidebar */
+    .sidebar .app-name-link img {
+      width: 120px;
+      height: auto;
+      margin: 20px auto;
+      display: block;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+
+    /* Títulos y Encabezados */
+    h1, h2, h3 {
+      color: var(--unab-blue) !important;
+      border-bottom: none !important;
+    }
+
+    h1 {
+      border-left: 8px solid var(--theme-color);
+      padding-left: 15px;
+    }
+
+    /* Contenedor para los diagramas de Mermaid */
+    .mermaid {
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+      margin: 20px 0;
+    }
+
+    /* Estilo para los bloques de código */
+    code {
+      background-color: #eef2f5 !important;
+      color: #d63384 !important;
+    }
+  </style>
 </head>
 <body>
-  <div id="app">Cargando Centro de Monitoreo...</div>
+  <div id="app">Cargando experiencia UNAB...</div>
   <script>
     window.$docsify = {
-      name: 'Flota Maquinaria Pesada',
+      name: 'Monitoreo de Flota IoT',
+      // Vinculamos el logo que subiste a la carpeta images
+      logo: 'images/monitoreoflota.jpg', 
       repo: '',
-      loadSidebar: false,
       auto2top: true,
-      homepage: 'README.md' // Aquí le decimos que lea tu documento
+      homepage: 'README.md',
+      executeScript: true
     }
   </script>
-  <!-- Motor de Docsify -->
+  
   <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
-  <!-- Soporte para renderizar los diagramas Mermaid -->
+  
   <script type="module">
     import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
-    mermaid.initialize({ startOnLoad: true });
+    mermaid.initialize({ 
+      startOnLoad: true, 
+      theme: 'neutral',
+      themeVariables: {
+        primaryColor: '#003865',
+        edgeLabelBackground: '#ffffff',
+        tertiaryColor: '#F4F7F9'
+      }
+    });
     window.$docsify.markdown = {
       renderer: {
         code: function(code, lang) {
           if (lang === "mermaid") {
-            return (
-              '<div class="mermaid">' + mermaid.render('mermaid-svg-' + Math.random().toString(36).substring(2), code) + '</div>'
-            );
+            return '<div class="mermaid">' + code + '</div>';
           }
           return this.origin.code.apply(this, arguments);
         }
