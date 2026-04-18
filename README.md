@@ -19,13 +19,13 @@ Se diseñó e implementó una arquitectura de Internet de las Cosas (IoT) orient
     * 10 Dispositivos Simulados (Retroexcavadoras y Volquetas) generando datos base de forma continua.
     * 2 Dispositivos Edge Reales (Cargadores Frontales) operando mediante scripts asíncronos en Python.
 
+```mermaid
 graph LR
-    %% Definición de Estilos
     classDef edge fill:#e1f5fe,stroke:#01579b,stroke-width:2px;
     classDef cloud fill:#e3f2fd,stroke:#1565c0,stroke-width:2px;
     classDef eam fill:#f3e5f5,stroke:#4a148c,stroke-width:2px;
 
-    ```subgraph Edge ["Capa Edge"]
+    subgraph Edge ["Capa Edge - Obra Bucaramanga"]
         direction TB
         Py1["🚜 Cargador-Python-01<br/>(asyncio / MQTT)"]:::edge
         Py2["🚜 Cargador-Python-02<br/>(asyncio / MQTT)"]:::edge
@@ -54,8 +54,8 @@ graph LR
     Sim -->|Telemetría Simulada| IoT
 
     IoT ==>|Visualización de Gemelos Digitales| Dash
-    IoT -.->|Reglas / Exportación de Alertas| Maximo```
-
+    IoT -.->|Reglas / Exportación de Alertas| Maximo
+```
 ---
 
 ## 2. Especificaciones de Hardware y Gemelos Digitales (Digital Twins)
