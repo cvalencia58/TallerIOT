@@ -25,7 +25,7 @@ graph LR
     classDef cloud fill:#e3f2fd,stroke:#1565c0,stroke-width:2px;
     classDef eam fill:#f3e5f5,stroke:#4a148c,stroke-width:2px;
 
-    subgraph Edge ["Capa Edge - Obra Bucaramanga"]
+    subgraph Edge ["Capa Edge"]
         direction TB
         Py1["🚜 Cargador-Python-01<br/>(asyncio / MQTT)"]:::edge
         Py2["🚜 Cargador-Python-02<br/>(asyncio / MQTT)"]:::edge
